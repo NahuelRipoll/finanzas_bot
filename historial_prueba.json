@@ -1,0 +1,14 @@
+[
+    {
+        "rol": "usuario",
+        "mensaje": "Hola, soy Nahuel"
+    },
+    {
+        "rol": "asistente",
+        "mensaje": "¡Hola, Nahuel!"
+    },
+    {
+        "rol": "usuario",
+        "mensaje": "Quiero consultar mis gastos"
+    }
+]

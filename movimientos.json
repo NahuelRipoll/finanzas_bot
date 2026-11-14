@@ -1,6 +1,38 @@
-{
-    "tipo": "gasto",
-    "monto": 2000,
-    "descripcion": "Botella de agua",
-    "categoria": "Alimentos y Bebidas"
-}
+[
+    {
+        "tipo": "gasto",
+        "monto": 2000,
+        "descripcion": "Botella de agua",
+        "categoria": "Alimentos y Bebidas"
+    },
+    {
+        "tipo": "gasto",
+        "monto": 3000,
+        "descripcion": "Coca-Cola",
+        "categoria": "Alimentos y bebidas"
+    },
+    {
+        "tipo": "gasto",
+        "monto": 4500,
+        "descripcion": "Café",
+        "categoria": "Alimentación"
+    },
+    {
+        "tipo": "gasto",
+        "monto": 10000,
+        "descripcion": "carne",
+        "categoria": "Alimentación"
+    },
+    {
+        "tipo": "ingreso",
+        "monto": 1000000,
+        "descripcion": "sueldo",
+        "categoria": "Sueldo"
+    },
+    {
+        "tipo": "gasto",
+        "monto": 3780,
+        "descripcion": "Empanadas",
+        "categoria": "Comida"
+    }
+]

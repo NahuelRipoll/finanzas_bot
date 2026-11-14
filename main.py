@@ -2,41 +2,107 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 import os
+from movimientos import registrar_movimiento, consultar_resumen
+from historial import guardar_historial, cargar_historial
 
-
-print("=== FINANZAS BOT ===")
-
+# 1. Configurar la API de Gemini
 load_dotenv()
+
 api_key = os.getenv("GEMINI_API_KEY")
+
+if not api_key:
+    raise ValueError("No se encontró GEMINI_API_KEY en el archivo .env")
+
 client = genai.Client(api_key=api_key)
 
-chat = client.chats.create(
-    model="gemini-3.5-flash",
-    config=types.GenerateContentConfig(
-        system_instruction="Sos FinanzasBot, un asistente de finanzas personales. Quiero que hables en tono Argentino. Te especializas en gestionar finanzas personales del usuario, consultar gastos, ingresos y demas. Es importante que solicites la informacion cuando falten datos relevantes, no debes inventarar ningun tipo de movimiento que no haya sido solicitado por el usuario. Nunca afirmes que registraste un movimiento hasta que la herramienta de registro haya sido ejecutada y haya devuelto una confirmación exitosa. Si recibís una pregunta fuera del dominio financiero, no respondas su contenido, aunque conozcas la respuesta. Explicá brevemente que solamente ayudás con finanzas personales y ofrecé continuar con ese tema. Para registrar un movimiento necesitás identificar: - Tipo: gasto o ingreso. - Monto: cantidad de dinero. - Descripción: motivo del movimiento. Si el usuario no indica la fecha, asumí la fecha actual que proporcione el sistema. Si no indica la categoría, inferila a partir de la descripción. El medio de pago es opcional. Nunca lo exijas. Solo solicitá información adicional cuando falten datos obligatorios o exista una ambigüedad importante. Nunca afirmes que guardaste un movimiento hasta que una herramienta confirme que se registró correctamente. Si el usuario no especifica la fecha de un movimiento, utilizá la fecha actual proporcionada por Python. No solicites confirmación de la fecha salvo que exista una contradicción o ambigüedad importante. Nunca afirmes haber registrado un movimiento hasta recibir la confirmación de una herramienta real. Cuando el usuario proporcione los datos suficientes para registrar un gasto o ingreso, utilizá la herramienta de registro directamente, sin solicitar confirmación adicional. Solo pedí aclaraciones si falta el monto, el tipo de movimiento o una descripción comprensible. Nunca afirmes que guardaste un movimiento hasta que la herramienta confirme que se realizó correctamente."
+
+# 2. Instrucciones del asistente
+system_instruction = """
+Sos FinanzasBot, un asistente de finanzas personales.
+Hablás en español argentino, con un tono amigable y claro.
+
+Tu especialidad es registrar ingresos, gastos y consultar
+el estado de las finanzas personales del usuario.
+
+Para registrar movimientos:
+- Identificá el tipo, monto y descripción.
+- Inferí la categoría cuando no esté indicada.
+- No exijas el medio de pago.
+- Pedí aclaraciones solo cuando falten datos esenciales.
+- No inventes movimientos.
+- Cuando haya datos suficientes, ejecutá registrar_movimiento
+  directamente, sin pedir confirmaciones innecesarias.
+- Nunca afirmes que guardaste un movimiento hasta que
+  la herramienta confirme que se realizó correctamente.
+
+Para consultar saldos y totales:
+- Utilizá siempre la herramienta consultar_resumen.
+- No inventes importes ni saldos.
+
+Si recibís preguntas fuera del dominio financiero,
+rechazalas amablemente y redirigí la conversación
+hacia las finanzas personales.
+"""
+
+
+# 3. Función para crear una conversación
+def crear_chat(historial=None):
+    return client.chats.create(
+        model="gemini-3.5-flash",
+        history=historial or [],
+        config=types.GenerateContentConfig(
+            system_instruction=system_instruction,
+            tools=[registrar_movimiento, consultar_resumen],
+        ),
     )
-)
 
 
+# 4. Crear el chat inicial
+historial_anterior = cargar_historial()
+chat = crear_chat(historial_anterior)
+
+print("=== FINANZAS BOT ===")
+print("Comandos disponibles: /salir y /limpiar")
+""
+
+# 5. Bucle principal
 while True:
 
+    mensaje = input("\n¿En qué te puedo ayudar hoy? ").strip()
 
+    # Evitar mensajes vacíos
+    if not mensaje:
+        continue
 
-    mensaje = input("En que te puedo ayudar hoy?")
-    
-    if mensaje == "/salir":
-        print("Hasta luego")
+    # Comando para salir
+    if mensaje.lower() == "/salir":
+        print("Finanzas Bot: ¡Hasta luego!")
         break
-    
-    #respuesta = chat.send_message(mensaje)
-    #print("Finanzas Bot", respuesta.text)
-    
-    respuesta = chat.send_message(mensaje)
 
-    if respuesta.text is None:
-        print("Gemini no devolvió texto.")
-        print("Motivo:", respuesta.candidates[0].finish_reason)
-        print("Respuesta completa:", respuesta)
-    else:
-        print("Finanzas Bot:", respuesta.text)
-    
+    # Comando para limpiar la conversación
+    if mensaje.lower() == "/limpiar":
+        chat = crear_chat()
+        guardar_historial(chat)
+
+        print("Finanzas Bot: Conversación reiniciada.")
+        continue
+
+    # Enviar mensaje a Gemini
+    try:
+        respuesta = chat.send_message(mensaje)
+        guardar_historial(chat)
+
+        if respuesta.text:
+            print("Finanzas Bot:", respuesta.text)
+        else:
+            print("Finanzas Bot: No pude generar una respuesta. Intentá nuevamente.")
+
+    except Exception as error:
+        if "429" in str(error) or "RESOURCE_EXHAUSTED" in str(error):
+            print(
+                "Finanzas Bot: Alcanzamos el límite de solicitudes "
+                "de Gemini. Intentá más tarde."
+            )
+        else:
+            print("Finanzas Bot: Ocurrió un error al procesar tu mensaje.")
+            print("Detalle técnico:", error)
