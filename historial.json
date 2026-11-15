@@ -1,1 +1,161 @@
-[]
+[
+    {
+        "parts": [
+            {
+                "text": "Gaste $13.000 en carne"
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "function_call": {
+                    "id": "call_6617632751027980622",
+                    "args": {
+                        "tipo": "gasto",
+                        "descripcion": "Carne",
+                        "categoria": "Alimentos",
+                        "monto": 13000
+                    },
+                    "name": "registrar_movimiento"
+                },
+                "thought_signature": "Ev8FCvwFAWkUfRNwIfpzltTK_Jit3TVdM5STlc2uvYy_XejIQB3Zbh4akZ_J6dfSYt0QRs8ZGy0gWfHaoTFpuozzJv_h9BHnn01PmgMC5qFTpyDiNGRijr01U-vkQ9hIrz4y2CsgNxdVsfW8kfR9Z6F9i5PA3ytt11Fi0mZy19fQwm9Kt8FTxmlx4sw2DIZEu37oncJVNX_aRsM8-S4iU-KtZ9GLhAU1rxBJKr1z_aOWTzSQKHdHVfroenHX57GIRe-VQQRsBiMMbKQIoMzuNif_NTOblqUhVwlgOZ5hwLXhT5oujDZfr8sps9dcZsWPvib9u01mwIdm6hluwG0LcxYoWV5A2FiOOp15faqEMgbY-w6wmhavOXqQz6_7J_TZwua98qt22cjz34B26tX0hEXzeYSYXiXAnrlH2O_J5kjf5IjzbJmMY__kdaKn_EIuF3BEyC-EPf3x9R5xiQB64qpZgQPWsdq25MiHvCoTvtnnI2FqopI518EMk5Z9Iwu_LiX6mQwyYP1NmIjbSFq--yixAnTHLvRiZTuT6tVQtbb3FU3IHCx8ZShtCy0wMBOgSoz5mfOoPGizK_0LHnU5RpUKppR_IXL0rdoxSK8pNalaDwn9liUGr-8LFbO8V5VBX3GzCv0tQWFEfV50OCPF7fWPO2aYaZ3FAF92o63xsx9D4wgvJN2W7eRByqR7PAhkyxIud4TRpimXpCvfN_wl2x3famgBTj2LwRWNfWXOI3eR5WMPCZwjx46XQoPyc2mC82r-RRpSVQARwCF6wZak2wWdn77hzCXDe2BvpxzCB2b6nm-9THU5PqMpkPaLqI-7Tb1GEFzUansqB9dGkY2m7JEkRrUG0hQwhOlNssaORl6AWSfwlVGSqJjYRmAgQTAmI34l8Rm8Eim5zrY7Az1SWs49T9idb3UaYABtlr9n4D91kR9l6Jz0ehb0aCtRScXWoDWfR9JWlzrNJrR64Eyxu546dgajWXlYRQhxXS-a9l3tPqIA_8e34aicF5dEa-tsY-k="
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "function_response": {
+                    "name": "registrar_movimiento",
+                    "response": {
+                        "result": {
+                            "exito": true,
+                            "movimiento": {
+                                "tipo": "gasto",
+                                "monto": 13000,
+                                "descripcion": "Carne",
+                                "categoria": "Alimentos"
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "text": "¡Listo! Ya anoté el gasto de **$13.000** en **Carne** dentro de la categoría **Alimentos**. \n\n¿Querés registrar algo más o consultar tu resumen?",
+                "thought_signature": "EqsCCqgCAWkUfRNrcc9S6wimBlKIqg7ljKzrh_0aidqDiVhAEA6X9-qz7GGQf9oWNaKIgQcGARJ26JmsQVp4P5bPELOLJGxDZqA3seWhRbqWEPyPe0o6F2tpqlWjhY9cecgWqzSio2IP7WgKNDefAkGcYfEPRd-OMOxuKoaZsiaNpu1dMLDZkOVltuAYTapx7trcKTmsXr0fmvDwVDIZpzC63RDfobty97E83wfMeBZ2q4pBfRpWEI0DIBVtCBBAhPxfbu8RSwjw0SN0Ndtp-oifixcuVqw3aSYAISR76NTGpJ2SKt6tas0ZBA3RdC4LQAsiwgz-krs-EpZIhO5R45AsaMO95T2bWzYQT2XcsaoNP-DYLsymdVY64W6iMEIBjy25OP98RtfR0hlGuO0="
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "text": "Recibí $700.000 en sueldo"
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "function_call": {
+                    "id": "call_12595770121500550585",
+                    "args": {
+                        "monto": 700000,
+                        "categoria": "Sueldo",
+                        "tipo": "ingreso",
+                        "descripcion": "Sueldo"
+                    },
+                    "name": "registrar_movimiento"
+                },
+                "thought_signature": "EpkDCpYDAWkUfRN4FP80jFZcFlYQfI-_CW3UwUcrWq5tArdumkkA_LQX9dR5-WKhZENBLfm44-m5Q2XDr_3IbAE2q5JR70QmvaqKvMPvp3aueDjuxMs245VbDj5vudelR6fMo7j-0CzNuedVQaiYLKFOTQHsidZz-8sNUhIr8wTCbm7At-eWktydTv2FFjFALChn79pP7hpv8gzAJZYRmvwWfTf8gW2Fb3mCgWKlo1ILp7YOj54ngV_3DeaByRQBQ8oFnklGBI_89-u1gM1iLnKSr3uoYZDPVtuDZL2pjLtCyJCb0SrRXqkBBR5on45MVoMpIXRDN8AWFgX1bHyeZv_63zeAIS2WVVhDYAue14lM_tz0IO9sWTbLt3zKYwh9tCqMXUQ78lWr9aW2vjHgaKq0ufzlllJ0ymXPQB7aKvvJLZVHbdovx6Ep2V3uJCRNWq00N-TueIGVhm3ip8qCtmEzmx0AFAB-p5S6sUsS9o7WuuQd487kAfXGMmitrXWxRxj6ST_4Wmlfn6bFDvD961ZKXJ0lcL2Kmo7YUA=="
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "function_response": {
+                    "name": "registrar_movimiento",
+                    "response": {
+                        "result": {
+                            "exito": true,
+                            "movimiento": {
+                                "tipo": "ingreso",
+                                "monto": 700000,
+                                "descripcion": "Sueldo",
+                                "categoria": "Sueldo"
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "text": "¡Buenísimo! Ya registré el ingreso de **$700.000** correspondiente a tu **Sueldo**.\n\n¿Necesitás agregar otro movimiento o querés ver cómo viene tu resumen?",
+                "thought_signature": "ErYBCrMBAWkUfRN2NDaWA-L2roISUS3PByqvSn4AfDTJpIrMf55CLbQoOoYnq2JkiWrc9ZifWJ0dXm0ANlq-OeeJ9cr6NjcO7Ts5CeRJtvoHSYYw77ADkOa6jljvlOrM2K4N8n7mUPHvpdK8IqPifievAkKJysGR39uTkxIvjK23C2Rg9uMg20aealtjGC-rBUSNw-5g7BMAW5HFm2kDCEOoO2OJEgQ5MfiYx0Vb3Pw_b-aqjS3faHM="
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "text": "Cuáles son mis gastos y mis ingresos actualmente"
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "function_call": {
+                    "id": "call_5082314390896758717",
+                    "args": {},
+                    "name": "consultar_resumen"
+                },
+                "thought_signature": "EqgCCqUCAWkUfRNg3vLrikpM4_Q4onlP0P5Ro8DtkcAgWkYjWb-bCxR4b1fGjaeEDNXTY4kXqRH72aec40wQsdUp206W7GWCWIneN9N0PjUv8dCClzEwAYxSKWTW6MCnY_AGfi-yjKGKA33J5g7eaEwZ7ctIMmKCkfeLfeEXx92-O12Blc0tWT7gAup1XOy_3tRFo-fAvwEE93VZp6QgTv6_qqQDpPQN0mpx717tIZ0T6JvfvxQCyoOJBn7e8sIg2fvLBp9lqq7sbXwd-mEBm3iHDrcFSwJllBctrKW2RlOmrosn3aR5zBfpIdzNC8crnjOkVoauVPBpDKGygI9FiCJLTOSQ0pnG0lndsvGv054BPuFPAFGfQMaJD3IxuOHx4Io62GkaIsSZMKA="
+            }
+        ],
+        "role": "model"
+    },
+    {
+        "parts": [
+            {
+                "function_response": {
+                    "name": "consultar_resumen",
+                    "response": {
+                        "result": {
+                            "total_gastos": 36280,
+                            "total_ingresos": 1700000,
+                            "saldo": 1663720
+                        }
+                    }
+                }
+            }
+        ],
+        "role": "user"
+    },
+    {
+        "parts": [
+            {
+                "text": "Acá tenés el resumen actual de tus finanzas:\n\n- 💰 **Total de ingresos:** $1.700.000\n- 💸 **Total de gastos:** $36.280\n- ⚖️ **Saldo disponible:** $1.663.720\n\n¿Te puedo ayudar con algo más?",
+                "thought_signature": "EvgCCvUCAWkUfRM6C6EaX8PsisOu8nRYMAhj9KxOdfJoVW2LNWnz0W7y20EnBAvAh1N29oQFLq9jYvyJ8V0PwVD3aqTRQjFmMeuhN6FaI0FmVgBd0Yn477NWIAbLniQRhkJ1W3BWKOHmsb126tMhscKtiAPAJ5jMjARjsn9K6J_fXDpDeTCo2ydLltAnGX8XQZDHUDjIwfbc-Wros4x4g1XJr9GShmYcGugzr8g5rd0uddQbF85EWePnN5XMhrsLR4V1EePq1XetV0JwDfbhUVX7kW6zT-H0x2bP50GOqNeoLAhyq6dFnjFNLsLkeiV66SPYS5sVBKb5PFYnAUzKe-5hDlEsw3mBcoyUCGdQhJD86PFaOe3uukYpmT04wAhbUMEAm7-K53erIIo7s4ur_Z4-RXqjmQYOwojD1n6-qCZ2jzLsSrU84hI_VWZYwIRApHfRqVQ4owXXaIZeAfEu2hiatiCQ4zWjnTpivw1M84FzN1YPLTAm8PSXHg=="
+            }
+        ],
+        "role": "model"
+    }
+]

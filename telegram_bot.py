@@ -1,4 +1,3 @@
-
 import os
 import asyncio
 from dotenv import load_dotenv
@@ -8,12 +7,11 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
     ContextTypes,
-    filters
+    filters,
 )
 from telegram.request import HTTPXRequest
-
 from agente import crear_chat
-
+from historial import guardar_historial, cargar_historial
 
 # Cargar variables del .env
 load_dotenv()
@@ -21,7 +19,7 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 # Crear una conversación con Gemini
-chat = crear_chat()
+chat = crear_chat(cargar_historial())
 
 
 # Comando /start
@@ -44,10 +42,9 @@ async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     try:
         # Gemini interpreta el mensaje y puede ejecutar herramientas
-        respuesta = await asyncio.to_thread(
-            chat.send_message,
-            mensaje
-        )
+        respuesta = await asyncio.to_thread(chat.send_message, mensaje)
+
+        guardar_historial(chat)
 
         await update.message.reply_text(
             respuesta.text or "No pude generar una respuesta."
@@ -58,13 +55,10 @@ async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if "429" in str(error):
             texto_error = (
-                "⚠️ Alcanzamos el límite de solicitudes de Gemini. "
-                "Probá más tarde."
+                "⚠️ Alcanzamos el límite de solicitudes de Gemini. " "Probá más tarde."
             )
         else:
-            texto_error = (
-                "⚠️ Ocurrió un error al procesar tu mensaje."
-            )
+            texto_error = "⚠️ Ocurrió un error al procesar tu mensaje."
 
         await update.message.reply_text(texto_error)
 
@@ -72,21 +66,13 @@ async def responder(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Iniciar el bot
 def main():
     if not TOKEN:
-        raise ValueError(
-            "Falta TELEGRAM_BOT_TOKEN en el archivo .env"
-        )
+        raise ValueError("Falta TELEGRAM_BOT_TOKEN en el archivo .env")
 
     request = HTTPXRequest(
-        connect_timeout=30,
-        read_timeout=30,
-        write_timeout=30,
-        pool_timeout=30
+        connect_timeout=30, read_timeout=30, write_timeout=30, pool_timeout=30
     )
 
-    updates_request = HTTPXRequest(
-        connect_timeout=30,
-        read_timeout=30
-    )
+    updates_request = HTTPXRequest(connect_timeout=30, read_timeout=30)
 
     app = (
         ApplicationBuilder()
@@ -98,12 +84,7 @@ def main():
 
     app.add_handler(CommandHandler("start", iniciar))
 
-    app.add_handler(
-        MessageHandler(
-            filters.TEXT & ~filters.COMMAND,
-            responder
-        )
-    )
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, responder))
 
     print("FinanzasBot + Gemini funcionando en Telegram...")
 

@@ -34,5 +34,17 @@
         "monto": 3780,
         "descripcion": "Empanadas",
         "categoria": "Comida"
+    },
+    {
+        "tipo": "gasto",
+        "monto": 13000,
+        "descripcion": "Carne",
+        "categoria": "Alimentos"
+    },
+    {
+        "tipo": "ingreso",
+        "monto": 700000,
+        "descripcion": "Sueldo",
+        "categoria": "Sueldo"
     }
 ]
